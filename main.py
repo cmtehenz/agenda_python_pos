@@ -9,38 +9,57 @@ __status__ = 'Development'
 from controller import Controller
 
 agenda = []
-
-print('~'*30)
-print('Bem vindo à agendar telefonica')
-print('~'*30)
+print ("\n" * 130)
 
 while True:
-  print('1 - Cadastrar contato;')
-  print('2 - Listar contato;')
-  print('3 - Listar todos os contatos;')
-  print('4 - Apagar contato;')
-  print('5 - Apagar todos os contatos;')
+  print('~'*30)
+  print('Bem vindo à agendar telefonica')
+  print('~'*30)
+  print('1 - Cadastrar Pessoa na Agenda')
+  print('2 - Alterar dados da Pessoa')
+  print('3 - Listar Agenda')
+  print('4 - Procurar pessoa na Agenda')
+  print('5 - Excluir Pessoa na Agenda')
   print('6 - Sair.')
+  
+  op = 0
 
-  op = int(input('Entre com a opção desejada: '))
+  try:
+    op = int(input('Entre com a opção desejada: '))
+  except ValueError:
+    print('Opção invalida')
+    print("\n" * 5)
 
   if op == 1:
+    print ("\n" * 130)
+    print('~'*30)
+    print('Cadastro novo Contato')
+    print('~'*30)
+
     nome = str(input('Digite o nome: ')).upper()
     telefone = str(input('Digite o telefone: '))
     cidade = str(input('Digite a cidade: '))
     estado = str(input('Digite o estado: '))
-    status = str(input('Digite o status: '))
+    while True:
+      status = str(input('Digite o status [P/C]: ')).upper()
+      if status in 'PC':
+        break
+      print('ERRO! Por favor, digite apenas P para pessoal ou C para comercial.')
     agenda.append(Controller.inserir(nome, telefone, cidade, estado, status))
+    print ("\n" * 5)
+    print('CONTATO SALVO COM SUCESSO!!!')
+    print ("\n" * 5)
   elif op == 2:
-    nome = input('Digite o nome para a pesquisa:')
+    nome = input('Digite o nome para a pesquisa: ').upper()
     Controller.listarNome(agenda, nome)
   elif op == 3:
     Controller.listarAll(agenda)
   elif op == 4:
-    nome = input('Digite o nome para a pesquisa:')
-    print(Controller.deletarNome(agenda, nome))
+    nome = input('Digite o nome para a pesquisa: ').upper()
+    Controller.listarNome(agenda, nome)
   elif op == 5:
-    print(Controller.deletarAll(agenda))
+    nome = input('Digite o nome para a excluir: ').upper()
+    print(Controller.deletarNome(agenda, nome))
   elif op == 6:
     break
   else:
